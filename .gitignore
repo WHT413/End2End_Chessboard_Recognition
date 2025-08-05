@@ -1,0 +1,19 @@
+*__pycache__
+
+Automatic Chessboard Recognition from Real-World Images Using Deep Learning.docx
+
+model/detect/chess_corners/*.png
+model/detect/chess_corners/*.jpg
+model/detect/chess_corners/*.csv
+
+model/detect/chess_pieces/*.png
+model/detect/chess_pieces/*.jpg
+model/detect/chess_pieces/*.csv
+
+model/detect/chess_pieces1/*.png
+model/detect/chess_pieces1/*.jpg
+model/detect/chess_pieces1/*.csv
+
+resources/ChessRender360/*
+
+

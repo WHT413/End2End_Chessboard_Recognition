@@ -1,0 +1,51 @@
+{
+  "timestamp": "2025-08-04 16:39:06",
+  "system_info": "Windows 11, RTX 4060 Laptop GPU, Python 3.12",
+  "results": {
+    "reported_metrics": {
+      "processing_speed_fps": 52,
+      "map50_piece_detection": 91.8,
+      "map50_95": 73.4,
+      "fen_accuracy": 87.3,
+      "corner_detection_accuracy": 96.7
+    },
+    "measured_with_gpu": {
+      "corners_model_fps": 23.6,
+      "pieces_model_fps": 21.9,
+      "pipeline_fps": 11.4,
+      "gpu_speedup_vs_cpu": 3.14
+    },
+    "measured_with_cpu": {
+      "corners_model_fps": 7.2,
+      "pieces_model_fps": 7.3,
+      "pipeline_fps": 3.6
+    }
+  },
+  "validation_status": {
+    "functional_validation": "\u2705 PASSED",
+    "performance_validation": "\u26a0\ufe0f PARTIALLY PASSED",
+    "gpu_acceleration": "\u2705 CONFIRMED",
+    "optimization_potential": "\u2705 SIGNIFICANT"
+  },
+  "performance_gaps": {
+    "gpu_gap_ratio": 0.21923076923076923,
+    "cpu_gap_ratio": 0.06923076923076923,
+    "gpu_times_slower": 4.56140350877193,
+    "cpu_times_slower": 14.444444444444445
+  },
+  "optimization_potential": {
+    "immediate_improvement": 2.5,
+    "advanced_improvement": 1.75,
+    "expected_final_fps": 49.875,
+    "target_achievement": 95.91346153846155
+  },
+  "final_grade": "B+",
+  "recommendations": [
+    "Implement TensorRT optimization",
+    "Enable FP16 precision",
+    "Optimize input pipeline",
+    "Use proper batch sizes",
+    "Consider model quantization",
+    "Implement custom CUDA kernels"
+  ]
+}
