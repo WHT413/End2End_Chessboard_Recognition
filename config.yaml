@@ -3,7 +3,7 @@ models:
     path: "model/detect/chess_corners/weights/best.pt"
     confidence_threshold: 0.5
   pieces:
-    path: "model/detect/chess_pieces_1/weights/best.pt"
+    path: "model/detect/chess_pieces_1/weights/bestv2.pt"
     confidence_threshold: 0.5
 
 resources:
