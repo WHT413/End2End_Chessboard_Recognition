@@ -157,8 +157,8 @@ class ChessProcessor:
         """
         random_id = randint(0, 10000)
         data_dir = self.config.get_resource_path('sample_data')
-        # img_path = f"{data_dir}/rgb_{random_id}.jpeg"
-        img_path = f"D:/Downloads/fbf6436e6847a604ad4ab319cb526467.jpg"
+        img_path = f"{data_dir}/rgb_{random_id}.jpeg"
+        # img_path = f"D:/Downloads/fbf6436e6847a604ad4ab319cb526467.jpg"
         return img_path
     
     def get_processing_size(self) -> Tuple[int, int]:

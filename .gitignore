@@ -16,4 +16,11 @@ model/detect/chess_pieces1/*.csv
 
 resources/ChessRender360/*
 
+*json
+image_test
+model/detect/chess_pieces1
+
+test.py
+test1.py
+.idea
 
