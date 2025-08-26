@@ -12,6 +12,7 @@ from typing import Dict, Tuple, Optional
 from pathlib import Path
 
 from ..utils.config import get_config
+from .fallback_corner_detector import detect_corners_fallback
 
 class BoardDetector:
     """
@@ -73,35 +74,37 @@ class BoardDetector:
                     'bottom_right': (x, y), 'bottom_left': (x, y)}
         """
         results = self.model(img, verbose=False)
-        if not results or not hasattr(results[0], 'boxes'):
-            return None
-            
-        boxes = results[0].boxes.xyxy.cpu().numpy()
-        scores = results[0].boxes.conf.cpu().numpy()
-        classes = results[0].boxes.cls.cpu().numpy()
-        
-        # Mapping from class ID to corner name
-        class2corner = {
-            0: 'top_left', 
-            1: 'top_right', 
-            2: 'bottom_right', 
-            3: 'bottom_left'
-        }
-        
-        corners = {}
-        confidence_threshold = get_config().get('models.corners.confidence_threshold', 0.5)
-        
-        for box, score, cls in zip(boxes, scores, classes):
-            if score > confidence_threshold and int(cls) in class2corner:
-                x1, y1, x2, y2 = box
-                # Use center of bounding box as corner position
-                x, y = int((x1 + x2) / 2), int((y1 + y2) / 2)
-                corners[class2corner[int(cls)]] = (x, y)
-        
-        # Ensure all four corners are detected
+        corners: Dict[str, Tuple[int, int]] = {}
+        if results and hasattr(results[0], "boxes"):
+            boxes = results[0].boxes.xyxy.cpu().numpy()
+            scores = results[0].boxes.conf.cpu().numpy()
+            classes = results[0].boxes.cls.cpu().numpy()
+
+            # Mapping from class ID to corner name
+            class2corner = {
+                0: "top_left",
+                1: "top_right",
+                2: "bottom_right",
+                3: "bottom_left",
+            }
+
+            confidence_threshold = get_config().get(
+                "models.corners.confidence_threshold", 0.5
+            )
+
+            for box, score, cls in zip(boxes, scores, classes):
+                if score > confidence_threshold and int(cls) in class2corner:
+                    x1, y1, x2, y2 = box
+                    # Use center of bounding box as corner position
+                    x, y = int((x1 + x2) / 2), int((y1 + y2) / 2)
+                    corners[class2corner[int(cls)]] = (x, y)
+
+        # If the model fails to detect all four corners, fall back to
+        # the classical corner detector inspired by chesscog.
         if len(corners) != 4:
-            return None
-            
+            print("Falling back to classical corner detector...")
+            return detect_corners_fallback(img)
+
         return corners
 
     def crop_board(self, img: np.ndarray, corners: Dict[str, Tuple[int, int]]) -> np.ndarray:
