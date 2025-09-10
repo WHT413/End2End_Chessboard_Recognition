@@ -82,10 +82,10 @@ class BoardDetector:
 
             # Mapping from class ID to corner name
             class2corner = {
-                0: "top_left",
-                1: "top_right",
-                2: "bottom_right",
-                3: "bottom_left",
+                0: "white_left",
+                1: "white_right",
+                2: "black_left",
+                3: "black_right",
             }
 
             confidence_threshold = get_config().get(
